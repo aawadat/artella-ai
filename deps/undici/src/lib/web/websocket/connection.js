@@ -8,14 +8,13 @@ const {
   kReceivedClose,
   kResponse
 } = require('./symbols')
-const { fireEvent, failWebsocketConnection, isClosing, isClosed, isEstablished } = require('./util')
+const { fireEvent, failWebsocketConnection, isClosing, isClosed, isEstablished, parseExtensions } = require('./util')
 const { channels } = require('../../core/diagnostics')
 const { CloseEvent } = require('./events')
 const { makeRequest } = require('../fetch/request')
 const { fetching } = require('../fetch/index')
-const { Headers } = require('../fetch/headers')
+const { Headers, getHeadersList } = require('../fetch/headers')
 const { getDecodeSplit } = require('../fetch/util')
-const { kHeadersList } = require('../../core/symbols')
 const { WebsocketFrameSend } = require('./frame')
 
 /** @type {import('crypto')} */
@@ -32,7 +31,7 @@ try {
  * @param {URL} url
  * @param {string|string[]} protocols
  * @param {import('./websocket').WebSocket} ws
- * @param {(response: any) => void} onEstablish
+ * @param {(response: any, extensions: string[] | undefined) => void} onEstablish
  * @param {Partial<import('../../types/websocket').WebSocketInit>} options
  */
 function establishWebSocketConnection (url, protocols, client, ws, onEstablish, options) {
@@ -59,7 +58,7 @@ function establishWebSocketConnection (url, protocols, client, ws, onEstablish, 
 
   // Note: undici extension, allow setting custom headers.
   if (options.headers) {
-    const headersList = new Headers(options.headers)[kHeadersList]
+    const headersList = getHeadersList(new Headers(options.headers))
 
     request.headersList = headersList
   }
@@ -92,12 +91,11 @@ function establishWebSocketConnection (url, protocols, client, ws, onEstablish, 
   // 9. Let permessageDeflate be a user-agent defined
   //    "permessage-deflate" extension header value.
   // https://github.com/mozilla/gecko-dev/blob/ce78234f5e653a5d3916813ff990f053510227bc/netwerk/protocol/websocket/WebSocketChannel.cpp#L2673
-  // TODO: enable once permessage-deflate is supported
-  const permessageDeflate = '' // 'permessage-deflate; 15'
+  const permessageDeflate = 'permessage-deflate; client_max_window_bits'
 
   // 10. Append (`Sec-WebSocket-Extensions`, permessageDeflate) to
   //     request’s header list.
-  // request.headersList.append('sec-websocket-extensions', permessageDeflate)
+  request.headersList.append('sec-websocket-extensions', permessageDeflate)
 
   // 11. Fetch request with useParallelQueue set to true, and
   //     processResponse given response being these steps:
@@ -168,10 +166,15 @@ function establishWebSocketConnection (url, protocols, client, ws, onEstablish, 
       //    header field to determine which extensions are requested is
       //    discussed in Section 9.1.)
       const secExtension = response.headersList.get('Sec-WebSocket-Extensions')
+      let extensions
 
-      if (secExtension !== null && secExtension !== permessageDeflate) {
-        failWebsocketConnection(ws, 'Received different permessage-deflate than the one set.')
-        return
+      if (secExtension !== null) {
+        extensions = parseExtensions(secExtension)
+
+        if (!extensions.has('permessage-deflate')) {
+          failWebsocketConnection(ws, 'Sec-WebSocket-Extensions header does not match.')
+          return
+        }
       }
 
       // 6. If the response includes a |Sec-WebSocket-Protocol| header field
@@ -207,7 +210,7 @@ function establishWebSocketConnection (url, protocols, client, ws, onEstablish, 
         })
       }
 
-      onEstablish(response)
+      onEstablish(response, extensions)
     }
   })
 
@@ -261,13 +264,9 @@ function closeWebSocketConnection (ws, code, reason, reasonByteLength) {
     /** @type {import('stream').Duplex} */
     const socket = ws[kResponse].socket
 
-    socket.write(frame.createFrame(opcodes.CLOSE), (err) => {
-      if (!err) {
-        ws[kSentClose] = sentCloseFrameState.SENT
-      }
-    })
+    socket.write(frame.createFrame(opcodes.CLOSE))
 
-    ws[kSentClose] = sentCloseFrameState.PROCESSING
+    ws[kSentClose] = sentCloseFrameState.SENT
 
     // Upon either sending or receiving a Close control frame, it is said
     // that _The WebSocket Closing Handshake is Started_ and that the
@@ -295,6 +294,11 @@ function onSocketData (chunk) {
  */
 function onSocketClose () {
   const { ws } = this
+  const { [kResponse]: response } = ws
+
+  response.socket.off('data', onSocketData)
+  response.socket.off('close', onSocketClose)
+  response.socket.off('error', onSocketError)
 
   // If the TCP connection was closed after the
   // WebSocket closing handshake was completed, the WebSocket connection

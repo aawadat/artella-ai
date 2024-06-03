@@ -269,6 +269,53 @@ Examples can be found in the [File System Permissions][] documentation.
 
 Relative paths are NOT supported through the CLI flag.
 
+### `--allow-wasi`
+
+<!-- YAML
+added: REPLACEME
+-->
+
+> Stability: 1.1 - Active development
+
+When using the [Permission Model][], the process will not be capable of creating
+any WASI instances by default.
+For security reasons, the call will throw an `ERR_ACCESS_DENIED` unless the
+user explicitly passes the flag `--allow-wasi` in the main Node.js process.
+
+Example:
+
+```js
+const { WASI } = require('node:wasi');
+// Attempt to bypass the permission
+new WASI({
+  version: 'preview1',
+  // Attempt to mount the whole filesystem
+  preopens: {
+    '/': '/',
+  },
+});
+```
+
+```console
+$ node --experimental-permission --allow-fs-read=* index.js
+node:wasi:99
+    const wrap = new _WASI(args, env, preopens, stdio);
+                 ^
+
+Error: Access to this API has been restricted
+    at new WASI (node:wasi:99:18)
+    at Object.<anonymous> (/home/index.js:3:1)
+    at Module._compile (node:internal/modules/cjs/loader:1476:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1555:10)
+    at Module.load (node:internal/modules/cjs/loader:1288:32)
+    at Module._load (node:internal/modules/cjs/loader:1104:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:191:14)
+    at node:internal/main/run_main_module:30:49 {
+  code: 'ERR_ACCESS_DENIED',
+  permission: 'WASI',
+}
+```
+
 ### `--allow-worker`
 
 <!-- YAML
@@ -568,7 +615,7 @@ vm.measureMemory();
 ### `--disable-wasm-trap-handler`
 
 <!-- YAML
-added: REPLACEME
+added: v22.2.0
 -->
 
 By default, Node.js enables trap-handler-based WebAssembly bound
@@ -927,6 +974,7 @@ following permissions are restricted:
   [`--allow-fs-read`][], [`--allow-fs-write`][] flags
 * Child Process - manageable through [`--allow-child-process`][] flag
 * Worker Threads - manageable through [`--allow-worker`][] flag
+* WASI - manageable through [`--allow-wasi`][] flag
 
 ### `--experimental-require-module`
 
@@ -980,6 +1028,26 @@ When used in conjunction with the `node:test` module, a code coverage report is
 generated as part of the test runner output. If no tests are run, a coverage
 report is not generated. See the documentation on
 [collecting code coverage from tests][] for more details.
+
+### `--experimental-test-module-mocks`
+
+<!-- YAML
+added: REPLACEME
+-->
+
+> Stability: 1.0 - Early development
+
+Enable module mocking in the test runner.
+
+### `--experimental-test-snapshots`
+
+<!-- YAML
+added: REPLACEME
+-->
+
+> Stability: 1.0 - Early development
+
+Enable [snapshot testing][] in the test runner.
 
 ### `--experimental-vm-modules`
 
@@ -1337,7 +1405,7 @@ endpoint on `http://host:port/json/list`.
 ### `--inspect-wait[=[host:]port]`
 
 <!-- YAML
-added: REPLACEME
+added: v22.2.0
 -->
 
 Activate inspector on `host:port` and wait for debugger to be attached.
@@ -1847,6 +1915,13 @@ Modules preloaded with `--require` will run before modules preloaded with `--imp
 
 <!-- YAML
 added: v22.0.0
+changes:
+  - version: REPLACEME
+    pr-url: https://github.com/nodejs/node/pull/53032
+    description: NODE_RUN_SCRIPT_NAME environment variable is added.
+  - version: REPLACEME
+    pr-url: https://github.com/nodejs/node/pull/53058
+    description: NODE_RUN_PACKAGE_JSON_PATH environment variable is added.
 -->
 
 > Stability: 1.1 - Active development
@@ -1886,6 +1961,15 @@ are:
   current folder.
 * Running `pre` or `post` scripts in addition to the specified script.
 * Defining package manager-specific environment variables.
+
+#### Environment variables
+
+The following environment variables are set when running a script with `--run`:
+
+* `NODE_RUN_SCRIPT_NAME`: The name of the script being run. For example, if
+  `--run` is used to run `test`, the value of this variable will be `test`.
+* `NODE_RUN_PACKAGE_JSON_PATH`: The path to the `package.json` that is being
+  processed.
 
 ### `--secure-heap=n`
 
@@ -1985,7 +2069,9 @@ concurrently. The default value is `os.availableParallelism() - 1`.
 ### `--test-force-exit`
 
 <!-- YAML
-added: v22.0.0
+added:
+  - v22.0.0
+  - v20.14.0
 -->
 
 Configures the test runner to exit the process once all known tests have
@@ -2100,6 +2186,18 @@ added:
 
 A number of milliseconds the test execution will fail after. If unspecified,
 subtests inherit this value from their parent. The default value is `Infinity`.
+
+### `--test-update-snapshots`
+
+<!-- YAML
+added: REPLACEME
+-->
+
+> Stability: 1.0 - Early development
+
+Regenerates the snapshot file used by the test runner for [snapshot testing][].
+Node.js must be started with the `--experimental-test-snapshots` flag in order
+to use this functionality.
 
 ### `--throw-deprecation`
 
@@ -2643,6 +2741,7 @@ one is included in the list below.
 * `--allow-child-process`
 * `--allow-fs-read`
 * `--allow-fs-write`
+* `--allow-wasi`
 * `--allow-worker`
 * `--conditions`, `-C`
 * `--diagnostic-dir`
@@ -2844,6 +2943,13 @@ equivalent to using the `--redirect-warnings=file` command-line flag.
 added:
  - v13.0.0
  - v12.16.0
+changes:
+  - version:
+     - REPLACEME
+    pr-url: https://github.com/nodejs/node/pull/52905
+    description:
+      Remove the possibility to use this env var with
+      kDisableNodeOptionsEnv for embedders.
 -->
 
 Path to a Node.js module which will be loaded in place of the built-in REPL.
@@ -3184,6 +3290,7 @@ node --stack-trace-limit=12 -p -e "Error.stackTraceLimit" # prints 12
 [`--allow-child-process`]: #--allow-child-process
 [`--allow-fs-read`]: #--allow-fs-read
 [`--allow-fs-write`]: #--allow-fs-write
+[`--allow-wasi`]: #--allow-wasi
 [`--allow-worker`]: #--allow-worker
 [`--build-snapshot`]: #--build-snapshot
 [`--cpu-prof-dir`]: #--cpu-prof-dir
@@ -3234,6 +3341,7 @@ node --stack-trace-limit=12 -p -e "Error.stackTraceLimit" # prints 12
 [security warning]: #warning-binding-inspector-to-a-public-ipport-combination-is-insecure
 [semi-space]: https://www.memorymanagement.org/glossary/s.html#semi.space
 [single executable application]: single-executable-applications.md
+[snapshot testing]: test.md#snapshot-testing
 [test reporters]: test.md#test-reporters
 [timezone IDs]: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 [tracking issue for user-land snapshots]: https://github.com/nodejs/node/issues/44014

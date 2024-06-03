@@ -1021,6 +1021,9 @@ try {
 <!-- YAML
 added: v16.7.0
 changes:
+  - version: REPLACEME
+    pr-url: https://github.com/nodejs/node/pull/53127
+    description: This API is no longer experimental.
   - version:
     - v20.1.0
     - v18.17.0
@@ -1034,8 +1037,6 @@ changes:
     description: Accepts an additional `verbatimSymlinks` option to specify
                  whether to perform path resolution for symlinks.
 -->
-
-> Stability: 1 - Experimental
 
 * `src` {string|URL} source path to copy.
 * `dest` {string|URL} destination path to copy to.
@@ -1074,7 +1075,7 @@ behavior is similar to `cp dir1/ dir2/`.
 <!-- YAML
 added: v22.0.0
 changes:
-  - version: REPLACEME
+  - version: v22.2.0
     pr-url: https://github.com/nodejs/node/pull/52837
     description: Add support for `withFileTypes` as an option.
 -->
@@ -2428,6 +2429,9 @@ copyFile('source.txt', 'destination.txt', constants.COPYFILE_EXCL, callback);
 <!-- YAML
 added: v16.7.0
 changes:
+  - version: REPLACEME
+    pr-url: https://github.com/nodejs/node/pull/53127
+    description: This API is no longer experimental.
   - version:
     - v20.1.0
     - v18.17.0
@@ -2446,8 +2450,6 @@ changes:
     description: Accepts an additional `verbatimSymlinks` option to specify
                  whether to perform path resolution for symlinks.
 -->
-
-> Stability: 1 - Experimental
 
 * `src` {string|URL} source path to copy.
 * `dest` {string|URL} destination path to copy to.
@@ -3116,7 +3118,7 @@ descriptor. See [`fs.utimes()`][].
 <!-- YAML
 added: v22.0.0
 changes:
-  - version: REPLACEME
+  - version: v22.2.0
     pr-url: https://github.com/nodejs/node/pull/52837
     description: Add support for `withFileTypes` as an option.
 -->
@@ -5466,6 +5468,9 @@ copyFileSync('source.txt', 'destination.txt', constants.COPYFILE_EXCL);
 <!-- YAML
 added: v16.7.0
 changes:
+  - version: REPLACEME
+    pr-url: https://github.com/nodejs/node/pull/53127
+    description: This API is no longer experimental.
   - version:
     - v20.1.0
     - v18.17.0
@@ -5479,8 +5484,6 @@ changes:
     description: Accepts an additional `verbatimSymlinks` option to specify
                  whether to perform path resolution for symlinks.
 -->
-
-> Stability: 1 - Experimental
 
 * `src` {string|URL} source path to copy.
 * `dest` {string|URL} destination path to copy to.
@@ -5650,7 +5653,7 @@ Synchronous version of [`fs.futimes()`][]. Returns `undefined`.
 <!-- YAML
 added: v22.0.0
 changes:
-  - version: REPLACEME
+  - version: v22.2.0
     pr-url: https://github.com/nodejs/node/pull/52837
     description: Add support for `withFileTypes` as an option.
 -->

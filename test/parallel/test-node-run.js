@@ -80,4 +80,18 @@ describe('node run [command]', () => {
     assert.strictEqual(child.stderr, '');
     assert.strictEqual(child.code, 0);
   });
+
+  it('should set special environment variables', async () => {
+    const scriptName = `special-env-variables${envSuffix}`;
+    const packageJsonPath = fixtures.path('run-script/package.json');
+    const child = await common.spawnPromisified(
+      process.execPath,
+      [ '--no-warnings', '--run', scriptName],
+      { cwd: fixtures.path('run-script') },
+    );
+    assert.ok(child.stdout.includes(scriptName));
+    assert.ok(child.stdout.includes(packageJsonPath));
+    assert.strictEqual(child.stderr, '');
+    assert.strictEqual(child.code, 0);
+  });
 });
