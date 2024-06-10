@@ -1887,7 +1887,7 @@ previous setting of `process.exitCode`.
 added: REPLACEME
 -->
 
-> Stability: 1 - Experimental
+> Stability: 1.1 - Active Development
 
 * `ref` {Object | Function} The reference to the resource that is being tracked.
 * `callback` {Function} The callback function to be called when the resource
@@ -2007,7 +2007,7 @@ so be careful and avoid relying the disposal of critical resources in this featu
 added: REPLACEME
 -->
 
-> Stability: 1 - Experimental
+> Stability: 1.1 - Active Development
 
 * `ref` {Object | Function} The reference
   to the resource that is being tracked.
@@ -2127,7 +2127,7 @@ so be careful and avoid relying the disposal of critical resources in this featu
 added: REPLACEME
 -->
 
-> Stability: 1 - Experimental
+> Stability: 1.1 - Active Development
 
 * `ref` {Object | Function} The reference
   to the resource that was registered previously.
