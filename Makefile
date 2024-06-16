@@ -147,7 +147,7 @@ ifdef JOBS
 	NINJA_ARGS := $(NINJA_ARGS) -j$(JOBS)
 else
 	IMMEDIATE_NINJA_ARGS := $(NINJA_ARGS)
-	NINJA_ARGS = $(IMMEDIATE_NINJA_ARGS) $(filter -j%,$(MAKEFLAGS))
+	NINJA_ARGS = $(filter -j%,$(MAKEFLAGS))$(IMMEDIATE_NINJA_ARGS)
 endif
 $(NODE_EXE): config.gypi out/Release/build.ninja
 	$(NINJA) -C out/Release $(NINJA_ARGS)
@@ -1151,13 +1151,14 @@ pkg: $(PKG)
 .PHONY: corepack-update
 corepack-update:
 	mkdir -p /tmp/node-corepack
-	curl -qLo /tmp/node-corepack/package.tgz "$$(npm view corepack dist.tarball)"
+	curl -qLo /tmp/node-corepack/package.tgz "$$($(call available-node,$(NPM) view corepack dist.tarball))"
 
 	rm -rf deps/corepack && mkdir deps/corepack
 	cd deps/corepack && tar xf /tmp/node-corepack/package.tgz --strip-components=1
 	chmod +x deps/corepack/shims/*
 
-	node deps/corepack/dist/corepack.js --version
+	$(call available-node,'-p' \
+			 'require(`./deps/corepack/package.json`).version')
 
 .PHONY: pkg-upload
 # Note: this is strictly for release builds on release machines only.
@@ -1188,6 +1189,7 @@ $(TARBALL): release-only doc-only
 	$(RM) -r $(TARNAME)/doc/images # too big
 	$(RM) -r $(TARNAME)/test*.tap
 	$(RM) -r $(TARNAME)/tools/cpplint.py
+	$(RM) -r $(TARNAME)/tools/eslint
 	$(RM) -r $(TARNAME)/tools/eslint-rules
 	$(RM) -r $(TARNAME)/tools/license-builder.sh
 	$(RM) -r $(TARNAME)/tools/node_modules

@@ -2,7 +2,6 @@
 #include "acorn_version.h"
 #include "ada.h"
 #include "ares.h"
-#include "base64_version.h"
 #include "brotli/encode.h"
 #include "cjs_module_lexer_version.h"
 #include "llhttp.h"
@@ -10,6 +9,7 @@
 #include "node.h"
 #include "simdjson.h"
 #include "simdutf.h"
+#include "sqlite3.h"
 #include "undici_version.h"
 #include "util.h"
 #include "uv.h"
@@ -112,7 +112,6 @@ Metadata::Versions::Versions() {
 
   acorn = ACORN_VERSION;
   cjs_module_lexer = CJS_MODULE_LEXER_VERSION;
-  base64 = BASE64_VERSION;
   uvwasi = UVWASI_VERSION_STRING;
 
 #if HAVE_OPENSSL
@@ -131,6 +130,7 @@ Metadata::Versions::Versions() {
 
   simdjson = SIMDJSON_VERSION;
   simdutf = SIMDUTF_VERSION;
+  sqlite = SQLITE_VERSION;
   ada = ADA_VERSION;
 }
 

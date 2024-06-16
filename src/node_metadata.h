@@ -48,10 +48,10 @@ namespace node {
   V(acorn)                                                                     \
   V(simdjson)                                                                  \
   V(simdutf)                                                                   \
+  V(sqlite)                                                                    \
   V(ada)                                                                       \
   NODE_VERSIONS_KEY_UNDICI(V)                                                  \
-  V(cjs_module_lexer)                                                          \
-  V(base64)
+  V(cjs_module_lexer)
 
 #if HAVE_OPENSSL
 #define NODE_VERSIONS_KEY_CRYPTO(V) V(openssl)

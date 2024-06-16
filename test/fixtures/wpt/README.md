@@ -17,7 +17,7 @@ Last update:
 - dom/events: https://github.com/web-platform-tests/wpt/tree/ab8999891c/dom/events
 - encoding: https://github.com/web-platform-tests/wpt/tree/a58bbf6d8c/encoding
 - fetch/data-urls/resources: https://github.com/web-platform-tests/wpt/tree/7c79d998ff/fetch/data-urls/resources
-- FileAPI: https://github.com/web-platform-tests/wpt/tree/e36dbb6f00/FileAPI
+- FileAPI: https://github.com/web-platform-tests/wpt/tree/cceaf3628d/FileAPI
 - hr-time: https://github.com/web-platform-tests/wpt/tree/34cafd797e/hr-time
 - html/webappapis/atob: https://github.com/web-platform-tests/wpt/tree/f267e1dca6/html/webappapis/atob
 - html/webappapis/microtask-queuing: https://github.com/web-platform-tests/wpt/tree/2c5c3c4c27/html/webappapis/microtask-queuing
@@ -35,6 +35,7 @@ Last update:
 - WebCryptoAPI: https://github.com/web-platform-tests/wpt/tree/5e042cbc4e/WebCryptoAPI
 - webidl/ecmascript-binding/es-exceptions: https://github.com/web-platform-tests/wpt/tree/a370aad338/webidl/ecmascript-binding/es-exceptions
 - webmessaging/broadcastchannel: https://github.com/web-platform-tests/wpt/tree/e97fac4791/webmessaging/broadcastchannel
+- webstorage: https://github.com/web-platform-tests/wpt/tree/9dafa89214/webstorage
 
 [Web Platform Tests]: https://github.com/web-platform-tests/wpt
 [`git node wpt`]: https://github.com/nodejs/node-core-utils/blob/main/docs/git-node.md#git-node-wpt
