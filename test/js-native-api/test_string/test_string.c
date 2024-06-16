@@ -516,6 +516,7 @@ napi_value Init(napi_env env, napi_value exports) {
       DECLARE_NODE_API_PROPERTY("TestPropertyKeyUtf16", TestPropertyKeyUtf16),
       DECLARE_NODE_API_PROPERTY("TestPropertyKeyUtf16AutoLength",
                                 TestPropertyKeyUtf16AutoLength),
+      DECLARE_NODE_API_PROPERTY("TestPropertyKeyUtf8", TestPropertyKeyUtf8),
   };
 
   init_test_null(env, exports);
