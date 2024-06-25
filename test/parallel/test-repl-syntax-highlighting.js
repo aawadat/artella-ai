@@ -1,12 +1,13 @@
 // Flags: --expose-internals
 'use strict';
 
-const common = require('../common');
+require('../common');
 const highlight = require('internal/repl/highlight');
 const assert = require('assert');
 const { inspect } = require('internal/util/inspect');
 
 function removeEscapeSequences(str) {
+  /* eslint-disable-next-line no-control-regex */
   return str.replace(/\u001b\[\d+m/g, '');
 }
 
@@ -22,6 +23,7 @@ const tests = [
   // Strings ('...', "...", and `...`)
   color('\'this is a string\'', inspect.colors[inspect.styles.string]),
   color('"this is a string"', inspect.colors[inspect.styles.string]),
+  /* eslint-disable-next-line no-template-curly-in-string */
   color('`this is a ${template}\nstring`', inspect.colors[inspect.styles.string]),
 
   // Keywords
@@ -97,7 +99,7 @@ const tests = [
 
   // Function Declaration
   `${color('function', inspect.colors[inspect.styles.special])} ${color('foo', inspect.colors[inspect.styles.special])}()`,
-]
+];
 
 for (const test of tests) {
   const result = highlight(removeEscapeSequences(test));
