@@ -453,7 +453,7 @@ from 0 to 5, with each level imposing stricter security requirements. The defaul
 security level is 1, which is generally suitable for most modern applications.
 However, some legacy features and protocols, such as TLSv1, require a lower
 security level (`SECLEVEL=0`) to function properly. For more detailed information,
-please refer to the [OpenSSL documentation on SSL_CTX_set_security_level][].
+please refer to the [OpenSSL documentation on security levels][].
 
 ### Setting Security Levels
 
@@ -2331,10 +2331,10 @@ added:
 [ECDHE]: https://en.wikipedia.org/wiki/Elliptic_curve_Diffie%E2%80%93Hellman
 [Modifying the default TLS cipher suite]: #modifying-the-default-tls-cipher-suite
 [Mozilla's publicly trusted list of CAs]: https://hg.mozilla.org/mozilla-central/raw-file/tip/security/nss/lib/ckfw/builtins/certdata.txt
-[OpenSSL Security Level]: #openssl-security-level
-[OpenSSL documentation on SSL_CTX_set_security_level]: https://www.openssl.org/docs/manmaster/man3/SSL_CTX_set_security_level.html#DEFAULT-CALLBACK-BEHAVIOUR
 [OCSP request]: https://en.wikipedia.org/wiki/OCSP_stapling
 [OpenSSL Options]: crypto.md#openssl-options
+[OpenSSL Security Level]: #openssl-security-level
+[OpenSSL documentation on security levels]: https://www.openssl.org/docs/manmaster/man3/SSL_CTX_set_security_level.html#DEFAULT-CALLBACK-BEHAVIOUR
 [Pre-shared keys]: #pre-shared-keys
 [RFC 2246]: https://www.ietf.org/rfc/rfc2246.txt
 [RFC 4086]: https://tools.ietf.org/html/rfc4086
