@@ -447,11 +447,19 @@ are not enabled by default since they offer less security.
 
 ## OpenSSL Security Level
 
-The OpenSSL library enforces security levels to control the minimum acceptable level of security for cryptographic operations. OpenSSL's security levels range from 0 to 5, with each level imposing stricter security requirements. The default security level is 1, which is generally suitable for most modern applications. However, some legacy features and protocols, such as TLSv1, require a lower security level (`SECLEVEL=0`) to function properly. For more detailed information, please refer to the [OpenSSL documentation on SSL_CTX_set_security_level](https://www.openssl.org/docs/manmaster/man3/SSL_CTX_set_security_level.html#DEFAULT-CALLBACK-BEHAVIOUR).
+The OpenSSL library enforces security levels to control the minimum acceptable 
+level of security for cryptographic operations. OpenSSL's security levels range 
+from 0 to 5, with each level imposing stricter security requirements. The default 
+security level is 1, which is generally suitable for most modern applications. 
+However, some legacy features and protocols, such as TLSv1, require a lower 
+security level (`SECLEVEL=0`) to function properly. For more detailed information, 
+please refer to the [OpenSSL documentation on SSL_CTX_set_security_level][].
 
 ### Setting Security Levels
 
-To adjust the security level in your Node.js application, you can include `@SECLEVEL=X` within a cipher string, where `X` is the desired security level. For example, to set the security level to 0 while using the default OpenSSL cipher list, you could use:
+To adjust the security level in your Node.js application, you can include `@SECLEVEL=X` 
+within a cipher string, where `X` is the desired security level. For example, 
+to set the security level to 0 while using the default OpenSSL cipher list, you could use:
 
 ```javascript
 const tls = require('tls');
@@ -467,11 +475,16 @@ listen(port, () => {
 });
 ```
 
-This approach sets the security level to 0, allowing the use of legacy features while still leveraging the default OpenSSL ciphers.
+This approach sets the security level to 0, allowing the use of legacy features while still 
+leveraging the default OpenSSL ciphers.
 
-### Using `--tls-cipher-list`
+### Using [`--tls-cipher-list`]
 
-You can also set the security level and ciphers from the command line using the `--tls-cipher-list=DEFAULT@SECLEVEL=X` as described in [Modifying the default TLS cipher suite][]. However, it is generally discouraged to use the command line option for setting ciphers and it is preferable to configure the ciphers for individual contexts within your application code, as this approach provides finer control and reduces the risk of globally downgrading the security level.
+You can also set the security level and ciphers from the command line using the 
+`--tls-cipher-list=DEFAULT@SECLEVEL=X` as described in [Modifying the default TLS cipher suite][]. 
+However, it is generally discouraged to use the command line option for setting ciphers and it is 
+preferable to configure the ciphers for individual contexts within your application code, 
+as this approach provides finer control and reduces the risk of globally downgrading the security level.
 
 ## X509 certificate error codes
 
@@ -2317,6 +2330,7 @@ added:
 [ECDHE]: https://en.wikipedia.org/wiki/Elliptic_curve_Diffie%E2%80%93Hellman
 [Modifying the default TLS cipher suite]: #modifying-the-default-tls-cipher-suite
 [OpenSSL Security Level]: #openssl-security-level
+[OpenSSL documentation on SSL_CTX_set_security_level]: https://www.openssl.org/docs/manmaster/man3/SSL_CTX_set_security_level.html#DEFAULT-CALLBACK-BEHAVIOUR
 [Mozilla's publicly trusted list of CAs]: https://hg.mozilla.org/mozilla-central/raw-file/tip/security/nss/lib/ckfw/builtins/certdata.txt
 [OCSP request]: https://en.wikipedia.org/wiki/OCSP_stapling
 [OpenSSL Options]: crypto.md#openssl-options
