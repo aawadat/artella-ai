@@ -480,10 +480,10 @@ leveraging the default OpenSSL ciphers.
 
 ### Using [`--tls-cipher-list`][]
 
-You can also set the security level and ciphers from the command line using the 
-`--tls-cipher-list=DEFAULT@SECLEVEL=X` as described in [Modifying the default TLS cipher suite][]. 
-However, it is generally discouraged to use the command line option for setting ciphers and it is 
-preferable to configure the ciphers for individual contexts within your application code, 
+You can also set the security level and ciphers from the command line using the
+`--tls-cipher-list=DEFAULT@SECLEVEL=X` as described in [Modifying the default TLS cipher suite][].
+However, it is generally discouraged to use the command line option for setting ciphers and it is
+preferable to configure the ciphers for individual contexts within your application code,
 as this approach provides finer control and reduces the risk of globally downgrading the security level.
 
 ## X509 certificate error codes
@@ -2330,9 +2330,7 @@ added:
 [DHE]: https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
 [ECDHE]: https://en.wikipedia.org/wiki/Elliptic_curve_Diffie%E2%80%93Hellman
 [Modifying the default TLS cipher suite]: #modifying-the-default-tls-cipher-suite
-[OpenSSL Security Level]: #openssl-security-level
 [Mozilla's publicly trusted list of CAs]: https://hg.mozilla.org/mozilla-central/raw-file/tip/security/nss/lib/ckfw/builtins/certdata.txt
-[OpenSSL documentation on SSL_CTX_set_security_level]: https://www.openssl.org/docs/manmaster/man3/SSL_CTX_set_security_level.html#DEFAULT-CALLBACK-BEHAVIOUR
 [OCSP request]: https://en.wikipedia.org/wiki/OCSP_stapling
 [OpenSSL Options]: crypto.md#openssl-options
 [Pre-shared keys]: #pre-shared-keys
@@ -2386,5 +2384,8 @@ added:
 [asn1.js]: https://www.npmjs.com/package/asn1.js
 [certificate object]: #certificate-object
 [cipher list format]: https://www.openssl.org/docs/man1.1.1/man1/ciphers.html#CIPHER-LIST-FORMAT
+[OpenSSL Security Level]: #openssl-security-level
+[OpenSSL documentation on SSL_CTX_set_security_level]: https://www.openssl.org/docs/manmaster/man3/SSL_CTX_set_security_level.html#DEFAULT-CALLBACK-BEHAVIOUR
+
 [forward secrecy]: https://en.wikipedia.org/wiki/Perfect_forward_secrecy
 [perfect forward secrecy]: #perfect-forward-secrecy
