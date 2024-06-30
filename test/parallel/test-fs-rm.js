@@ -541,7 +541,6 @@ if (isGitPresent) {
             name: 'Error',
           });
         } catch (err) {
-          console.log(err);
           // Only fail the test if the folder was not deleted.
           // as in some cases rmSync successfully deletes read-only folders.
           if (fs.existsSync(root)) {
