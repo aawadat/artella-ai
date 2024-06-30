@@ -2330,8 +2330,9 @@ added:
 [DHE]: https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
 [ECDHE]: https://en.wikipedia.org/wiki/Elliptic_curve_Diffie%E2%80%93Hellman
 [Modifying the default TLS cipher suite]: #modifying-the-default-tls-cipher-suite
-[OpenSSL Security Level]: #openssl-security-level
 [Mozilla's publicly trusted list of CAs]: https://hg.mozilla.org/mozilla-central/raw-file/tip/security/nss/lib/ckfw/builtins/certdata.txt
+[OpenSSL Security Level]: #openssl-security-level
+[OpenSSL documentation on SSL_CTX_set_security_level]: https://www.openssl.org/docs/manmaster/man3/SSL_CTX_set_security_level.html#DEFAULT-CALLBACK-BEHAVIOUR
 [OCSP request]: https://en.wikipedia.org/wiki/OCSP_stapling
 [OpenSSL Options]: crypto.md#openssl-options
 [Pre-shared keys]: #pre-shared-keys
@@ -2344,7 +2345,6 @@ added:
 [Session Resumption]: #session-resumption
 [Stream]: stream.md#stream
 [TLS recommendations]: https://wiki.mozilla.org/Security/Server_Side_TLS
-[OpenSSL documentation on SSL_CTX_set_security_level]: https://www.openssl.org/docs/manmaster/man3/SSL_CTX_set_security_level.html#DEFAULT-CALLBACK-BEHAVIOUR
 [`'newSession'`]: #event-newsession
 [`'resumeSession'`]: #event-resumesession
 [`'secureConnect'`]: #event-secureconnect
