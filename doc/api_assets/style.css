@@ -67,11 +67,6 @@ h5 :target {
 }
 
 /*--------------------- Layout and Typography ----------------------------*/
-@media (prefers-reduced-motion: no-preference) {
-  html {
-    scroll-behavior: smooth;
-  }
-}
 
 html {
   font-size: 1rem;
