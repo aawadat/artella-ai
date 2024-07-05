@@ -970,7 +970,7 @@ function expectRequiredModule(mod, expectation) {
     assert.strictEqual(mod.__esModule, true);
     delete clone.__esModule;
   }
-  isModuleNamespaceObject(mod);
+  assert(isModuleNamespaceObject(mod));
   assert.deepStrictEqual(clone, { ...expectation });
 }
 
