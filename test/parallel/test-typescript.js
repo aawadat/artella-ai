@@ -92,3 +92,71 @@ test('execute a typescript file with type definition', async () => {
   strictEqual(result.stderr, '');
   strictEqual(result.code, 0);
 });
+
+test('execute a typescript file with commonjs syntax', async () => {
+  const result = await spawnPromisified(process.execPath, [
+    '--experimental-strip-types',
+    fixtures.path('typescript/test-commonjs-parsing.ts'),
+  ]);
+
+  match(result.stdout, /Hello, TypeScript!/);
+  strictEqual(result.stderr, '');
+  strictEqual(result.code, 0);
+});
+
+test('execute a typescript file with ts extensions and commonjs syntax', async () => {
+  const result = await spawnPromisified(process.execPath, [
+    '--experimental-strip-types',
+    fixtures.path('typescript/test-ts-extension-commonjs-syntax.ts'),
+  ]);
+
+  match(result.stdout, /Hello, TypeScript!/);
+  strictEqual(result.stderr, '');
+  strictEqual(result.code, 0);
+});
+
+test('execute a mts file with commonjs syntax', async () => {
+  const result = await spawnPromisified(process.execPath, [
+    '--experimental-strip-types',
+    fixtures.path('typescript/test-esmodule-typescript.ts'),
+  ]);
+
+  match(result.stdout, /Hello, TypeScript!/);
+  strictEqual(result.stderr, '');
+  strictEqual(result.code, 0);
+});
+
+test('expect failure of a ts file requiring esm syntax', async () => {
+  const result = await spawnPromisified(process.execPath, [
+    '--experimental-strip-types',
+    fixtures.path('typescript/test-require-mts-module.ts'),
+  ]);
+
+  strictEqual(result.stdout, '');
+  match(result.stderr, /Cannot use import statement outside a module/);
+  strictEqual(result.code, 1);
+});
+
+test('expect typescript file to importing cjs syntax', async () => {
+  const result = await spawnPromisified(process.execPath, [
+    '--experimental-strip-types',
+    fixtures.path('typescript/test-import-cts-module.ts'),
+  ]);
+
+  match(result.stdout, /Hello, TypeScript!/);
+  strictEqual(result.stderr, '');
+  strictEqual(result.code, 0);
+});
+
+// TODO(marco-ippolito) fix compatibility --experimental-require-module
+test('expect failure of a ts file requiring esm syntax', async () => {
+  const result = await spawnPromisified(process.execPath, [
+    '--experimental-strip-types',
+    '--experimental-require-module',
+    fixtures.path('typescript/test-require-mts-module.ts'),
+  ]);
+
+  strictEqual(result.stdout, '');
+  match(result.stderr, /Cannot use import statement outside a module/);
+  strictEqual(result.code, 1);
+});

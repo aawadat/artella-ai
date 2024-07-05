@@ -1058,20 +1058,22 @@ added: REPLACEME
 
 It is possible to execute TypeScript files by setting the experimental
 flag [`--experimental-strip-types`][].
-Node.js will transpile TypeScript source code into JavaScript source code as `esnext` [ES Modules][].
+Node.js will transpile TypeScript source code into JavaScript source code.
 During the transpilation process, no type checking is performed, and types are discarded.
-Currently only files with the extension `.ts` are supported,
-meaning it will not support `.mts`, `.cts`, or `.tsx` syntax.
+
+> The flag [`--experimental-require-module`][] is currently not supported.
 
 ### Limitations
+
+#### .mts and .cts
+
+Currently `.mts` and `.cts` extensions are not supported.
 
 #### TypeScript only features
 
 By design Node.js will not perform transformations on TypeScript only features.
 This means `Enum`, `experimentalDecorators`, `namespaces` and other TS
 only features are not supported.
-You can set `isolatedModules` in your `tsconfig.json` to ensure
-that you are not using TypeScript only features.
 
 Importing [modules without extension][] is not supported.
 
@@ -1097,6 +1099,7 @@ Currently source maps are not supported.
 [Source map v3 format]: https://sourcemaps.info/spec.html#h.mofvlxcwqzej
 [`"exports"`]: packages.md#exports
 [`--enable-source-maps`]: cli.md#--enable-source-maps
+[`--experimental-require-module`]: cli.md#--experimental-require-module
 [`--experimental-strip-types`]: cli.md#--experimental-strip-types
 [`ArrayBuffer`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer
 [`NODE_V8_COVERAGE=dir`]: cli.md#node_v8_coveragedir
