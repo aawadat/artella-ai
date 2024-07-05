@@ -1085,7 +1085,7 @@ Importing [modules without extension][] is not supported.
 #### REPL
 
 Executing source code in the REPL with TypeScript is not supported.
-This also applies to `--eval`, `--print`, `--check` and `inspect`.
+This also applies to `--print`, `--check` and `inspect`.
 
 #### Source maps
 

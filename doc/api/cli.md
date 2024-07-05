@@ -862,6 +862,9 @@ export USERNAME="nodejs" # will result in `nodejs` as the value.
 <!-- YAML
 added: v0.5.2
 changes:
+  - version: REPLACEME
+    pr-url: https://github.com/nodejs/node/pull/53725
+    description: Eval now supports experimental type-stripping.
   - version: v5.11.0
     pr-url: https://github.com/nodejs/node/pull/5348
     description: Built-in libraries are now available as predefined variables.
@@ -873,6 +876,8 @@ predefined in the REPL can also be used in `script`.
 On Windows, using `cmd.exe` a single quote will not work correctly because it
 only recognizes double `"` for quoting. In Powershell or Git bash, both `'`
 and `"` are usable.
+
+It is possible to execute TypeScript code using [`--experimental-strip-types`][].
 
 ### `--experimental-default-type=type`
 
@@ -3401,6 +3406,7 @@ node --stack-trace-limit=12 -p -e "Error.stackTraceLimit" # prints 12
 [`--diagnostic-dir`]: #--diagnostic-dirdirectory
 [`--experimental-default-type=module`]: #--experimental-default-typetype
 [`--experimental-sea-config`]: single-executable-applications.md#generating-single-executable-preparation-blobs
+[`--experimental-strip-types`]: #--experimental-strip-types
 [`--experimental-wasm-modules`]: #--experimental-wasm-modules
 [`--heap-prof-dir`]: #--heap-prof-dir
 [`--import`]: #--importmodule
