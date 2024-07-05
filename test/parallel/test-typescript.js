@@ -77,7 +77,7 @@ test('expect error when executing a typescript file with namespaces', async () =
     fixtures.path('typescript/test-namespaces.ts'),
   ]);
   // This error should be thrown during transformation
-  match(result.stderr, /Unexpected identifier 'Validation'/);
+  match(result.stderr, /TypeScript namespace declaration is not supported in strip-only mode/);
   strictEqual(result.stdout, '');
   strictEqual(result.code, 1);
 });
