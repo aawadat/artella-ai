@@ -1048,6 +1048,49 @@ returned object contains the following keys:
 * columnNumber: {number} The 1-indexed columnNumber of the
   corresponding call site in the original source
 
+## TypeScript support
+
+<!-- YAML
+added: REPLACEME
+-->
+
+> Stability: 1.0 - Early development
+
+It is possible to execute TypeScript files by setting the experimental
+flag [`--experimental-strip-types`][].
+Node.js will transpile TypeScript source code into JavaScript source code.
+During the transpilation process, no type checking is performed, and types are discarded.
+
+> The flag [`--experimental-require-module`][] is currently not supported.
+
+### Limitations
+
+#### .mts and .cts
+
+Currently `.mts` and `.cts` extensions are not supported.
+
+#### TypeScript only features
+
+By design Node.js will not perform transformations on TypeScript only features.
+This means `Enum`, `experimentalDecorators`, `namespaces` and other TS
+only features are not supported.
+
+Importing [modules without extension][] is not supported.
+
+```ts
+  import { foo } from 'foo'; // it will not work
+  import { foo } from './foo.ts'; // it will work
+```
+
+#### REPL
+
+Executing source code in the REPL with TypeScript is not supported.
+This also applies to `--print`, `--check` and `inspect`.
+
+#### Source maps
+
+Currently source maps are not supported.
+
 [CommonJS]: modules.md
 [Conditional exports]: packages.md#conditional-exports
 [Customization hooks]: #customization-hooks
@@ -1056,6 +1099,8 @@ returned object contains the following keys:
 [Source map v3 format]: https://sourcemaps.info/spec.html#h.mofvlxcwqzej
 [`"exports"`]: packages.md#exports
 [`--enable-source-maps`]: cli.md#--enable-source-maps
+[`--experimental-require-module`]: cli.md#--experimental-require-module
+[`--experimental-strip-types`]: cli.md#--experimental-strip-types
 [`ArrayBuffer`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer
 [`NODE_V8_COVERAGE=dir`]: cli.md#node_v8_coveragedir
 [`SharedArrayBuffer`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer
@@ -1071,6 +1116,7 @@ returned object contains the following keys:
 [hooks]: #customization-hooks
 [load hook]: #loadurl-context-nextload
 [module wrapper]: modules.md#the-module-wrapper
+[modules without extension]: esm.md#mandatory-file-extensions
 [realm]: https://tc39.es/ecma262/#realm
 [source map include directives]: https://sourcemaps.info/spec.html#h.lmz475t4mvbx
 [transferrable objects]: worker_threads.md#portpostmessagevalue-transferlist
