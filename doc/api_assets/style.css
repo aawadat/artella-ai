@@ -44,7 +44,7 @@ h2 :target,
 h3 :target,
 h4 :target,
 h5 :target {
-  scroll-margin-top: 55px;
+  scroll-margin-top: 4rem;
 }
 
 .dark-mode {
@@ -67,16 +67,10 @@ h5 :target {
 }
 
 /*--------------------- Layout and Typography ----------------------------*/
-@media (prefers-reduced-motion: no-preference) {
-  html {
-    scroll-behavior: smooth;
-  }
-}
 
 html {
   font-size: 1rem;
   overflow-wrap: break-word;
-  scroll-padding-top: 50vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-variant-ligatures: none;
