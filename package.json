@@ -1,0 +1,12 @@
+{
+  "name": "airdrop-runner",
+  "version": "1.0.1",
+  "description": "Auto Airdrop Runner using airdrop-tea2",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "airdrop-tea2": "^0.3.0"
+  }
+}
